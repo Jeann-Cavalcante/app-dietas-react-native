@@ -12,7 +12,7 @@ const Home = () => {
       
       <Image className=' w-32 object-cover h-24' source={logo} />
 
-      <TouchableOpacity activeOpacity={0.7}>
+      <TouchableOpacity onPress={() => navigation.navigate('DetailDiet')} activeOpacity={0.7}>
       <Card 
       cor='inside' 
       iconName='arrow-top-right'
