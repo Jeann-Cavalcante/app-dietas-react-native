@@ -1,45 +1,65 @@
-import { ScrollView } from "react-native";
+import { useEffect, useState } from "react";
+import { FlatList, ScrollView } from "react-native";
 import { View, Text } from "react-native";
+import { getStorage, removeStorage } from "../utils/StorageLocal";
 
 const ListFood = () => {
+  const [food, setFood] = useState(null);
+
+  useEffect(() => {
+    async function getList() {
+      const data = await getStorage();
+
+      if (data) {
+        const days = data.map((item) => item.date);
+
+        const daysUnique = [...new Set(days)];
+
+        const daysFood = daysUnique.map((day) => {
+          const food = data.filter((item) => item.date === day);
+          return [day, food];
+        });
+        console.log(daysFood[0]);
+        // console.log(daysFood[0][1]);
+        setFood(daysFood);
+      }
+      // console.log('lista ',food);
+    };
+    getList();
+  }, []);
+
+  if (food === null || food == []) {
+    return <Text className='text-xl text-center mt-8'>Não há refeições cadastradas</Text>;
+  }
+
   return (
-    <View className='mt-10 '>
-      <Text className='text-2xl font-bold '>05/04/2023</Text>
+    <View className='mt-6 '>
 
-      <View className='border-2 p-4 mt-3 rounded-xl border-gray-300 flex-row items-center justify-between'>
-        <View className='flex-row'>
-        <Text className='pr-3 border-r-2 text-lg border-gray-300'>08:30</Text>
-        <Text className='text-lg pl-4'>Pão com ovo</Text>
+      <FlatList
+        data={food}
+        keyExtractor={(item) => item[0]}
+        scrollEnabled={false}
+        style={{ marginBottom: 100 }}
+        renderItem={({ item }) => (
 
-        </View>
+          <View >
+            <Text className='text-2xl font-bold mt-6'>{item[0]}</Text>
 
-        <View style={{ backgroundColor: '#639339' }} className='w-5 h-5 rounded-full'></View>
-      </View>
+            {item[1]?.map((item) => (
 
-      <View className='border-2 p-4 mt-3 rounded-xl border-gray-300 flex-row items-center justify-between'>
-        <View className='flex-row'>
-          <Text className='pr-3 border-r-2 text-lg border-gray-300'>08:30</Text>
-          <Text className='text-lg pl-4'>Almoço com carne</Text>
+              <View key={item?.id} className='border-2 p-4 mt-3 rounded-xl border-gray-300 flex-row items-center justify-between'>
+                <View className='flex-row'>
+                  <Text className='pr-3 border-r-2 text-lg border-gray-300'>{item?.hora}</Text>
+                  <Text className='text-lg pl-4'>{item?.desc}</Text>
+                </View>
 
-        </View>
+                <View style={[item?.inside ? { backgroundColor: '#15803d' } : { backgroundColor: '#dc2626' }]} className='w-5 h-5 rounded-full z-50'></View>
+              </View>
 
-        <View style={{ backgroundColor: '#BF3B44' }} className='w-5 h-5 rounded-full'></View>
-      </View>
-
-
-
-      <View className='border-2 p-4 mt-3 rounded-xl border-gray-300 flex-row items-center justify-between'>
-        <View className='flex-row'>
-          <Text className='pr-3 border-r-2 text-lg border-gray-300'>08:30</Text>
-          <Text className='text-lg pl-4'>Club social</Text>
-
-        </View>
-
-        <View style={{ backgroundColor: '#639339' }} className='w-5 h-5 rounded-full'></View>
-      </View>
-
-
-
+            ))}
+          </View>
+        )}
+      />
     </View>
   );
 }

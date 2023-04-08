@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div></div>
+  <script>
+    const data = [
+  {
+    date: "07/03/2023",
+    desc: "hcydhd cdgvdsg ysftfx",
+    hora: "01:47",
+    id: "ykkxrj19c",
+    inside: false,
+    nome: "teste"
+  },
+  {
+    date: "07/03/2023",
+    desc: "Café com leite em pó e club social",
+    hora: "10:49",
+    id: "wfountjen",
+    inside: true,
+    nome: "Cafe da manha"
+  },
+  {
+    date: "08/03/2023",
+    desc: "dia 8",
+    hora: "10:49",
+    id: "bcduyvcysu",
+    inside: true,
+    nome: "almoço"
+  }
+]
+
+const days = data.map((item) => item.date);
+
+const daysUnique = [...new Set(days)];
+
+const daysFood = daysUnique.map((day) => {
+  const food = data.filter((item) => item.date === day);
+  return [day, food] ;
+});
+console.log(daysFood[0][1]);
+
+const div = document.querySelector('div')
+daysFood.map((day) => {
+  const h2 = document.createElement('h2')
+  h2.innerHTML = day[0]
+  div.appendChild(h2)
+  day[1].map((item) => {
+    const p = document.createElement('p')
+    p.innerHTML = item.nome
+    div.appendChild(p)
+  })
+})
+  </script>
+</body>
+</html>

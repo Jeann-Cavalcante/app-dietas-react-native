@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import Input from "../components/Input";
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
+import { getStorage, setStorage } from "../utils/StorageLocal";
 
 
 const Form = () => {
@@ -44,12 +45,13 @@ const Form = () => {
       return;
     }
 
+    setStorage({ date: dateFood, hora: hour, nome, desc: descricao, inside })
+
     navigation.navigate('Message', { inside: inside });
-    console.log(nome);
-    console.log(descricao);
-    console.log(dateFood);
-    console.log(hour);
+
   };
+  
+  getStorage()
 
 
   useEffect(() => {
@@ -115,7 +117,7 @@ const Form = () => {
               className='border-2 p-3 rounded-lg border-gray-300 text-xl text-gray-700'
               placeholder='Digite o nome da refeição...' />
           </TouchableOpacity>
-        </View> 
+        </View>
 
         <View className='mt-8'>
           <Text className='text-lg  font-semibold text-gray-700'>Refeição dentro da dieta?</Text>
