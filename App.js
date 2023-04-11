@@ -7,7 +7,7 @@ export default function App() {
     <>
       <Routes />
       <Toast />
-      <StatusBar style="auto" />
+      <StatusBar style='dark'  />
     </>
   );
 }

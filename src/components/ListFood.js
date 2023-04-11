@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
-import { FlatList, ScrollView } from "react-native";
+import { FlatList, ScrollView, TouchableOpacity } from "react-native";
 import { View, Text } from "react-native";
 import { getStorage, removeStorage } from "../utils/StorageLocal";
+import { useNavigation } from "@react-navigation/native";
 
 const ListFood = () => {
   const [food, setFood] = useState(null);
+
+  const navigation = useNavigation();
 
   useEffect(() => {
     async function getList() {
@@ -51,14 +54,14 @@ const ListFood = () => {
 
             {item[1]?.map((item) => (
 
-              <View key={item?.id} className='border-2 p-4 mt-3 rounded-xl border-gray-300 flex-row items-center justify-between'>
+              <TouchableOpacity onPress={() => navigation.navigate('Info', item)} key={item?.id} className='border-2 p-4 mt-3 rounded-xl border-gray-300 flex-row items-center justify-between'>
                 <View className='flex-row'>
                   <Text className='pr-3 border-r-2 text-lg border-gray-300'>{item?.hora}</Text>
                   <Text className='text-lg pl-4'>{item?.desc}</Text>
                 </View>
 
                 <View style={[item?.inside ? { backgroundColor: '#15803d' } : { backgroundColor: '#dc2626' }]} className='w-5 h-5 rounded-full z-50'></View>
-              </View>
+              </TouchableOpacity>
 
             ))}
           </View>

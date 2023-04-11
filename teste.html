@@ -36,27 +36,40 @@
   }
 ]
 
-const days = data.map((item) => item.date);
+function insert(){
+  const div = document.querySelector('div');
+  const html = data.map(item => {
+    return `
+      <div>
+        <h2>${item.nome}</h2>
+        <p>${item.desc}</p>
+        <p>${item.date}</p>
+        <p>${item.hora}</p>
+      </div>
+    `
+  }).join('');
+  div.innerHTML = html;
+};
 
-const daysUnique = [...new Set(days)];
+function update(item){
+  const atual = data.find(i => i.id === item.id);
+  atual.nome = item.nome;
+  atual.desc = item.desc;
+  atual.date = item.date;
+  atual.hora = item.hora;
 
-const daysFood = daysUnique.map((day) => {
-  const food = data.filter((item) => item.date === day);
-  return [day, food] ;
+  insert();
+};
+
+update({
+  id: "ykkxrj19c",
+  nome: "almoço",
+  desc: "dia 8",
+  date: "08/03/2023",
+  hora: "10:49"
 });
-console.log(daysFood[0][1]);
 
-const div = document.querySelector('div')
-daysFood.map((day) => {
-  const h2 = document.createElement('h2')
-  h2.innerHTML = day[0]
-  div.appendChild(h2)
-  day[1].map((item) => {
-    const p = document.createElement('p')
-    p.innerHTML = item.nome
-    div.appendChild(p)
-  })
-})
+insert()
   </script>
 </body>
 </html>

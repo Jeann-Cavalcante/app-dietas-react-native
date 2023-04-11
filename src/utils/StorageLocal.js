@@ -57,17 +57,11 @@ export const removeStorage = async (item) => {
 }
 
 export const updateStorage = async (item) => {
-  
   const data = await getStorage();
 
-  const newData = data.map((food) => {
-    if(food.id === item.id){
-      return item;
-    }
-    return food;
-  });
-
-  await setStorage(newData);
+  const newData = data.filter((data) => data.id !== item.id);
+  console.log(newData);
+  await setStorage(...newData, item);
 }
 
 export const getStorageDiet = async () => {

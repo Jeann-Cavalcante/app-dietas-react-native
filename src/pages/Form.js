@@ -1,11 +1,11 @@
 import { ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import Input from "../components/Input";
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
-import { getStorage, setStorage } from "../utils/StorageLocal";
+import { getStorage, setStorage, updateStorage } from "../utils/StorageLocal";
+import Header from "../components/Header";
 
 
 const Form = () => {
@@ -16,6 +16,9 @@ const Form = () => {
   const [date, setDate] = useState(new Date());
   const [hour, setHour] = useState('');
   const [dateFood, setDateFood] = useState('');
+
+  const items = useRoute().params
+
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
@@ -50,9 +53,16 @@ const Form = () => {
     navigation.navigate('Message', { inside: inside });
 
   };
-  
-  getStorage()
 
+  const handleUpdate =  () => {
+    if (nome === '' || descricao === '' || dateFood === '' || hour === '' || inside === '') {
+      alert('Preencha o campo nome!');
+      return;
+    }
+
+    updateStorage(items)
+    navigation.navigate('Message', { inside: inside });
+  }
 
   useEffect(() => {
     const hourFood = parseInt(date.getHours()) < 10 ? '0' + date.getHours() : date.getHours();
@@ -66,15 +76,21 @@ const Form = () => {
 
   }, [date]);
 
+
+useEffect(() => {
+    if (items) {
+      setNome(items?.nome)
+      setDescricao(items?.desc)
+      setDateFood(items?.date)
+      setHour(items?.hora)
+      setInside(items?.inside)
+    }
+}, [items])
+
   return (
     <ScrollView className='flex-1 bg-primary'>
 
-      <View className='flex  bg-primary h-32 flex-row items-center px-4 pt-10'>
-        <TouchableOpacity onPress={() => navigation.goBack()} className='mr-4'>
-          <MaterialCommunityIcons name="arrow-left-thin" size={40} color="black" />
-        </TouchableOpacity>
-        <Text className='text-2xl font-bold text-center pl-10 text-gray-700'>Nova refeição</Text>
-      </View>
+      <Header title='Nova Refeição' />
 
       <View className='rounded-t-3xl flex-1 px-4 pt-6 bg-gray-100 '>
 
@@ -95,7 +111,6 @@ const Form = () => {
             value={descricao}
           />
         </View>
-
 
         <View className='flex flex-row justify-between mt-6'>
           <TouchableOpacity onPress={showDatepicker} className='w-[65%]'>
@@ -144,9 +159,9 @@ const Form = () => {
         </View>
 
         <TouchableOpacity
-          onPress={handleSave}
+          onPress={items ? handleUpdate : handleSave}
           className='my-10'>
-          <Button iconName='fruit-grapes' text='Salvar' />
+          <Button iconName='fruit-grapes' text={items ? 'Salvar' : 'Cadastrar'} />
         </TouchableOpacity>
       </View>
     </ScrollView>
