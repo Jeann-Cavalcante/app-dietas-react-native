@@ -60,7 +60,14 @@ const Form = () => {
       return;
     }
 
-    updateStorage(items)
+    updateStorage({
+      id: items.id,
+      date: dateFood,
+      hora: hour,
+      nome,
+      desc: descricao,
+      inside
+    })
     navigation.navigate('Message', { inside: inside });
   }
 

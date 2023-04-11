@@ -13,8 +13,6 @@ export const getStorage = async () => {
 
   return json;
 }
-// console.log('teste');
-// getStorage().then((data) => console.log(data));
 
 export const setStorage = async ({date, hora, nome, desc, inside}) => {
   console.log(date, hora, nome, desc, inside);
@@ -50,18 +48,23 @@ export const setStorage = async ({date, hora, nome, desc, inside}) => {
 export const removeStorage = async (item) => {
   
   const data = await getStorage();
+  console.log('item', data.length);
 
-  const newData = data.filter((food) => food.id !== item);
+  const newData = data.filter((food) => food.id != item.id);
+  console.log(newData.length);
 
-  await setStorage(newData);
+  await AsyncStorage.setItem('food', JSON.stringify(newData));
 }
 
 export const updateStorage = async (item) => {
   const data = await getStorage();
 
-  const newData = data.filter((data) => data.id !== item.id);
-  console.log(newData);
-  await setStorage(...newData, item);
+  const newData = data.filter((dataItem) => dataItem.id !== item.id);
+  
+  await AsyncStorage.setItem('food', JSON.stringify([
+    ...newData,
+    item
+  ] ));
 }
 
 export const getStorageDiet = async () => {

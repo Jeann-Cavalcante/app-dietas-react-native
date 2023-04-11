@@ -2,13 +2,26 @@ import { Text, TouchableOpacity, View } from "react-native";
 import Header from "../components/Header";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import Button from "../components/Button";
+import { useState } from "react";
+import ModalComponent from "../components/ModalComponent";
+import { removeStorage } from "../utils/StorageLocal";
 
 const Info = () => {
+  const [modalVisible, setModalVisible] = useState(false);
   const items = useRoute().params
   const navigation = useNavigation();
 
   function handleDelete(){
-    
+    removeStorage(items)
+    navigation.navigate('Home')
+  };
+
+  const handleOpenModal = () => {
+    setModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalVisible(false);
   };
 
   return (
@@ -38,12 +51,21 @@ const Info = () => {
           <TouchableOpacity onPress={() => navigation.navigate('Form', items)} className='mb-3'>
             <Button iconName='archive-edit' text='Editar' />
           </TouchableOpacity>
-          <TouchableOpacity>
-
+          <TouchableOpacity onPress={handleOpenModal}>
             <Button outline iconName='delete' text='Excluir' />
           </TouchableOpacity>
         </View>
       </View>
+
+      <ModalComponent modalVisible={modalVisible} onClose={handleCloseModal}>
+        <TouchableOpacity onPress={handleDelete} className='mb-3'>
+          <Button iconName='delete' text='Excluir' />
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={handleCloseModal}>
+          <Button outline iconName='close' text='Cancelar' />
+        </TouchableOpacity>
+      </ModalComponent>
     </View>
   );
 }

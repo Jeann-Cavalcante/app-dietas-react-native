@@ -57,7 +57,7 @@ const ListFood = () => {
               <TouchableOpacity onPress={() => navigation.navigate('Info', item)} key={item?.id} className='border-2 p-4 mt-3 rounded-xl border-gray-300 flex-row items-center justify-between'>
                 <View className='flex-row'>
                   <Text className='pr-3 border-r-2 text-lg border-gray-300'>{item?.hora}</Text>
-                  <Text className='text-lg pl-4'>{item?.desc}</Text>
+                  <Text className='text-lg pl-4'>{item?.desc.length > 20 ? item.desc.substring(0,20)+ "..." : item.desc }</Text>
                 </View>
 
                 <View style={[item?.inside ? { backgroundColor: '#15803d' } : { backgroundColor: '#dc2626' }]} className='w-5 h-5 rounded-full z-50'></View>
