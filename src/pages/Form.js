@@ -145,7 +145,7 @@ const Form = () => {
 
         <TouchableOpacity
           onPress={handleSave}
-          className='mt-10'>
+          className='my-10'>
           <Button iconName='fruit-grapes' text='Salvar' />
         </TouchableOpacity>
       </View>

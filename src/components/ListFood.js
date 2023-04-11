@@ -11,6 +11,7 @@ const ListFood = () => {
       const data = await getStorage();
 
       if (data) {
+
         const days = data.map((item) => item.date);
 
         const daysUnique = [...new Set(days)];
@@ -19,11 +20,14 @@ const ListFood = () => {
           const food = data.filter((item) => item.date === day);
           return [day, food];
         });
-        console.log(daysFood[0]);
-        // console.log(daysFood[0][1]);
+
+        // ordenar daysFood for date
+        const orderFood = daysFood.sort((a, b) => {
+          return new Date(a[0]) - new Date(b[0]);
+        });
         setFood(daysFood);
       }
-      // console.log('lista ',food);
+
     };
     getList();
   }, []);
