@@ -1,42 +1,46 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FlatList, ScrollView, TouchableOpacity } from "react-native";
 import { View, Text } from "react-native";
 import { getStorage, removeStorage } from "../utils/StorageLocal";
 import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect } from '@react-navigation/native';
 
 const ListFood = () => {
   const [food, setFood] = useState(null);
 
   const navigation = useNavigation();
 
-  useEffect(() => {
-    async function getList() {
-      const data = await getStorage();
+  useFocusEffect(
+    useCallback(() => {
+      async function getList() {
+        const data = await getStorage();
 
-      if (data) {
+        console.log('data', data.length);
+        data.length == 0 && setFood(null);
 
-        const days = data.map((item) => item.date);
+        if (data) {
+          console.log('atualizou lista');
 
-        const daysUnique = [...new Set(days)];
+          const days = data.map((item) => item.date);
 
-        const daysFood = daysUnique.map((day) => {
-          const food = data.filter((item) => item.date === day);
-          return [day, food];
-        });
+          const daysUnique = [...new Set(days)];
 
-        // ordenar daysFood for date
-        const orderFood = daysFood.sort((a, b) => {
-          return new Date(a[0]) - new Date(b[0]);
-        });
-        setFood(daysFood);
-      }
+          const daysFood = daysUnique.map((day) => {
+            const food = data.filter((item) => item.date === day);
+            return [day, food];
+          });
 
-    };
-    getList();
-  }, []);
+          setFood(daysFood);
+        }
 
-  if (food === null || food == []) {
-    return <Text className='text-xl text-center mt-8'>Não há refeições cadastradas</Text>;
+      };
+      getList();
+    }, [])
+  );
+
+console.log('food if',food);
+  if (!food || food.length == 0) {
+    return <Text className='text-xl text-center mt-8 font-bold'>Não há refeições cadastradas</Text>;
   }
 
   return (

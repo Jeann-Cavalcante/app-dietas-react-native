@@ -10,6 +10,7 @@ export const getStorage = async () => {
   json.sort((a, b) => {
     return new Date(a.date) - new Date(b.date);
   })
+  setStorageDiet();
 
   return json;
 }
@@ -31,6 +32,7 @@ export const setStorage = async ({date, hora, nome, desc, inside}) => {
         inside
       }
     ]));
+    await setStorageDiet();
     return;
   }
 
@@ -54,6 +56,10 @@ export const removeStorage = async (item) => {
   console.log(newData.length);
 
   await AsyncStorage.setItem('food', JSON.stringify(newData));
+
+  const teste = await getStorage();
+  console.log('teste', teste);
+  await setStorageDiet();
 }
 
 export const updateStorage = async (item) => {
@@ -69,6 +75,10 @@ export const updateStorage = async (item) => {
 
 export const getStorageDiet = async () => {
   const data = await AsyncStorage.getItem('diet');
+
+  if(!data) return null;
+
+  console.log('data', data);
 
   const json = await JSON.parse(data);
 
@@ -121,5 +131,3 @@ export const setStorageDiet = async () => {
     inside_out
   }));
 }
-
-setStorageDiet();

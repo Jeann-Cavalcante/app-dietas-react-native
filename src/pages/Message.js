@@ -18,7 +18,7 @@ const Message = () => {
             <Text className='text-green-600 text-4xl text-center mb-4 font-bold'>Continue assim!</Text>
             <Text className='text-center text-lg'>Você continua dentro da dieta. Muito bem!</Text>
           </View>
-          <Image className='mx-auto object-cover' source={inside_in} />
+          <Image className='mx-auto object-cover' source={inside_in } />
         </>
       ) : (
         <>
