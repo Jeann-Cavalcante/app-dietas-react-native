@@ -6,7 +6,7 @@ Este é um aplicativo de dieta desenvolvido em React Native que usa o pacote asy
 
 ## Layout
 
-<div style="display: flex;">
+<div style="width: 100%; display: flex; justify-content: center">
   <img src="https://github.com/Jeann-Cavalcante/app-dietas-react-native/blob/master/src/assets/diet.gif" alt="Demo GIF" width="300">
   <img src="https://github.com/Jeann-Cavalcante/app-dietas-react-native/blob/master/src/assets/home.png" alt="Demo GIF" width="300">
   <img src="https://github.com/Jeann-Cavalcante/app-dietas-react-native/blob/master/src/assets/form.png" alt="Demo GIF" width="300">
