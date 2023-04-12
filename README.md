@@ -6,14 +6,22 @@ Este é um aplicativo de dieta desenvolvido em React Native que usa o pacote asy
 
 ## Layout
 
-<img src="https://github.com/Jeann-Cavalcante/app-dietas-react-native/blob/master/src/assets/diet.gif" alt="Demo GIF" width="300">
-<img src="https://github.com/Jeann-Cavalcante/app-dietas-react-native/blob/master/src/assets/home.gif" alt="Demo GIF" width="300">
-<img src="https://github.com/Jeann-Cavalcante/app-dietas-react-native/blob/master/src/assets/form.gif" alt="Demo GIF" width="300">
+<div style="display: flex;">
+  <img src="https://github.com/Jeann-Cavalcante/app-dietas-react-native/blob/master/src/assets/diet.gif" alt="Demo GIF" width="300">
+  <img src="https://github.com/Jeann-Cavalcante/app-dietas-react-native/blob/master/src/assets/home.png" alt="Demo GIF" width="300">
+  <img src="https://github.com/Jeann-Cavalcante/app-dietas-react-native/blob/master/src/assets/form.png" alt="Demo GIF" width="300">
+  <img src="https://github.com/Jeann-Cavalcante/app-dietas-react-native/blob/master/src/assets/info.png" alt="Demo GIF" width="300">
+  <img src="https://github.com/Jeann-Cavalcante/app-dietas-react-native/blob/master/src/assets/info_diet.png" alt="Demo GIF" width="300">
+  <img src="https://github.com/Jeann-Cavalcante/app-dietas-react-native/blob/master/src/assets/msg.png" alt="Demo GIF" width="300">
+ </div>
 
 # Tecnologias utilizadas
 
 ## Mobile
 - React Native / async-storage / Expo / Tailwind
+
+## Referencia
+https://www.figma.com/file/Xjhjxj4PVRwem0J9IU9wiH/Daily-Diet-(Copy)-(Copy)-(Copy)?node-id=0%3A1&t=qZxrlr3NPVoQxfWR-1
 
 # Como executar o projeto
 
