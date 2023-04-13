@@ -1,5 +1,3 @@
-# App em desenvolvimento..
-
 # Sobre o projeto
 
 Este é um aplicativo de dieta desenvolvido em React Native que usa o pacote async-storage para armazenar dados localmente. O objetivo deste aplicativo é ajudar os usuários a manterem uma dieta saudável, monitorando suas refeições consumidas..
